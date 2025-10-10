@@ -31,26 +31,53 @@ Sonuç: "göğsüne asit döküldüğü sanrıları gören hasta" ✅
 ```
 ---
 
-Mimari:
+Hızlı Başlangıç:
+-Gereksinimler
 
-┌─────────────────────────────────────────┐
-│         Web Arayüzü (HTML/JS)           │
-└─────────────────┬───────────────────────┘
-                  │
-         ┌────────▼────────┐
-         │   FastAPI       │
-         │   (Backend)     │
-         └────────┬────────┘
-                  │
-    ┌─────────────┼─────────────┐
-    │             │             │
-┌───▼────┐  ┌────▼─────┐  ┌───▼─────┐
-│ SOMA   │  │ Sentence │  │ Ollama  │
-│ Motor  │  │ BERT     │  │ Llama   │
-│        │  │ (Embed)  │  │ 3.2     │
-└───┬────┘  └──────────┘  └─────────┘
-    │
-┌───▼──────────────┐
-│  Vektör Arama    │
-│  (Neo4j/FAISS)   │
-└──────────────────┘
+        Python 3.8+
+        5GB boş disk alanı
+        8GB RAM (önerilir)
+        Ollama_3.1:8b
+
+-Kurulum
+```powershell
+# 1. Repo'yu klonla
+git clone https://github.com/EdizSavas/Soma-Experiment.git
+cd soma-experiments
+
+# 2. Virtual environment oluştur
+python -m venv venv
+
+# Windows:
+venv\Scripts\activate
+# Linux/Mac:
+source venv/bin/activate
+
+# 3. Gereksinimleri yükle
+python requirements.py
+# veya
+pip install -r requirements.txt
+
+# 4. Ollama'yı başlat (yeni terminal)
+ollama serve
+
+# 5. Llama modelini indir
+ollama pull llama3.2
+```
+
+-Çalıştırma
+```powershell
+# Konsol Demo
+python demo_free.py
+
+# Web API
+uvicorn api_free:app --reload
+
+# Web arayüzü: index_free.html dosyasını tarayıcıda aç
+```
+
+-Bilinen Sorunlar
+        1.  İlk sorgu yavaş (model yükleme),
+        2. Türkçe karakter encoding bazen sorun çıkarabilir,
+        3. Neo4j vektör araması büyük veri setlerinde yavaş olabilir,
+        4. Anlam kayması ve didaktik sorunlar oluşabilir.
