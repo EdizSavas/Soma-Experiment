@@ -35,7 +35,7 @@ Hızlı Başlangıç:
 -Gereksinimler
 
         Python 3.8+
-        5GB boş disk alanı
+        8GB boş disk alanı
         8GB RAM (önerilir)
         Ollama_3.1:8b
 
@@ -62,16 +62,16 @@ pip install -r requirements.txt
 ollama serve
 
 # 5. Llama modelini indir
-ollama pull llama3.2
+ollama pull llama3.1:8b
 ```
 
 -Çalıştırma
 ```powershell
-# Konsol Demo
-python demo_free.py
+# Konsol Soma-Experiments
+python demo.py
 
 # Web API
-uvicorn api_free:app --reload
+uvicorn api:app --reload
 
 # Web arayüzü: index_free.html dosyasını tarayıcıda aç
 ```
