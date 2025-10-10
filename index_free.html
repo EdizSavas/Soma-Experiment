@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOMA - Anlamsal Arama Motoru</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --bg-card: #0f3460;
+            --accent-purple: #9d4edd;
+            --accent-purple-dark: #7b2cbf;
+            --text-primary: #e6e6e6;
+            --text-secondary: #b8b8b8;
+            --text-muted: #808080;
+            --border-color: #2d2d44;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+        }
+        
+        h1 {
+            color: var(--text-primary);
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+        
+        .header-accent {
+            color: var(--accent-purple);
+        }
+        
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1em;
+            font-weight: 400;
+            margin-top: 8px;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-purple-dark), var(--accent-purple));
+            color: white;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-top: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Tech Stack */
+        .tech-stack {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .tech-stack-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+        
+        .tech-item {
+            background: var(--bg-card);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            border: 1px solid var(--border-color);
+        }
+        
+        .tech-item strong {
+            color: var(--accent-purple);
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .tech-item span {
+            color: var(--text-secondary);
+        }
+        
+        /* Search Box */
+        .search-box {
+            margin-bottom: 30px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 15px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        input[type="text"]::placeholder {
+            color: var(--text-muted);
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            background: var(--bg-card);
+            box-shadow: 0 0 0 3px rgba(157, 78, 221, 0.1);
+        }
+        
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--accent-purple-dark), var(--accent-purple));
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        button:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 16px rgba(157, 78, 221, 0.3);
+        }
+        
+        button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .btn-secondary {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover:not(:disabled) {
+            background: var(--bg-secondary);
+            box-shadow: none;
+        }
+        
+        /* Example Queries */
+        .example-queries {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .example-queries-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .example-query {
+            display: inline-block;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            margin: 4px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-color);
+            font-size: 0.85em;
+            color: var(--text-secondary);
+        }
+        
+        .example-query:hover {
+            background: var(--accent-purple);
+            color: white;
+            border-color: var(--accent-purple);
+            transform: translateY(-2px);
+        }
+        
+        /* Status Indicator */
+        .status-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        .status-online {
+            background: var(--success);
+            box-shadow: 0 0 8px var(--success);
+            animation: pulse 2s infinite;
+        }
+        
+        .status-offline {
+            background: var(--error);
+            box-shadow: 0 0 8px var(--error);
+        }
+        
+        .status-checking {
+            background: var(--warning);
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--accent-purple);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 1.1em;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .loading-subtext {
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+        
+        /* Results */
+        .results {
+            margin-top: 40px;
+        }
+        
+        .llm-response {
+            background: var(--bg-secondary);
+            border: 1px solid var(--accent-purple);
+            border-left: 4px solid var(--accent-purple);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .llm-response h3 {
+            color: var(--accent-purple);
+            margin-bottom: 16px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .llm-response-content {
+            color: var(--text-primary);
+            line-height: 1.8;
+            font-size: 0.95em;
+        }
+        
+        .llm-meta {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .llm-meta-item {
+            font-size: 0.8em;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .results-title {
+            color: var(--text-primary);
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 30px 0 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .result-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--accent-purple);
+            padding: 20px;
+            margin-bottom: 16px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+        
+        .result-card:hover {
+            border-left-width: 4px;
+            transform: translateX(4px);
+            background: var(--bg-card);
+        }
+        
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .hasta-isim {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.05em;
+        }
+        
+        .skor {
+            background: linear-gradient(135deg, var(--accent-purple-dark), var(--accent-purple));
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .result-meta {
+            color: var(--text-muted);
+            font-size: 0.85em;
+            margin-bottom: 12px;
+        }
+        
+        .notlar {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            padding: 12px;
+            background: var(--bg-card);
+            border-radius: 6px;
+            font-size: 0.9em;
+            border-left: 2px solid var(--border-color);
+        }
+        
+        /* Error Box */
+        .error-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--error);
+            border-left: 4px solid var(--error);
+            padding: 24px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        
+        .error-box h3 {
+            color: var(--error);
+            margin-bottom: 12px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        
+        .error-box p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        
+        .error-solutions {
+            background: var(--bg-card);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            border: 1px solid var(--border-color);
+        }
+        
+        .error-solutions strong {
+            color: var(--error);
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .error-solutions ol {
+            margin-left: 20px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        
+        .error-solutions code {
+            background: var(--bg-primary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: var(--accent-purple);
+            font-size: 0.9em;
+            border: 1px solid var(--border-color);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .header {
+                padding: 30px 0;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .button-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .status-indicator {
+                top: 10px;
+                right: 10px;
+                font-size: 0.75em;
+                padding: 8px 12px;
+            }
+            
+            .result-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .result-card, .llm-response {
+            animation: fadeIn 0.4s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Status Indicator -->
+    <div class="status-indicator" id="statusIndicator">
+        <span class="status-dot status-checking"></span>
+        <span id="statusText">Kontrol ediliyor...</span>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                <span class="header-accent">SOMA</span> Demo
+            </h1>
+            <p class="subtitle">Anlamsal Hasta Kayıt Arama Sistemi</p>
+        </div>
+        
+        <!-- Tech Stack -->
+        <div class="tech-stack">
+            <div class="tech-stack-title">Teknoloji Yığını</div>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <strong>LLM</strong>
+                    <span>Ollama (Llama 3.1:8b)</span>
+                </div>
+                <div class="tech-item">
+                    <strong>Embedding</strong>
+                    <span>Türkçe BERT</span>
+                </div>
+                <div class="tech-item">
+                    <strong>Backend</strong>
+                    <span>FastAPI</span>
+                </div>
+                <div class="tech-item">
+                    <strong>Maliyet</strong>
+                    <span>₺0</span>
+                </div>
+                <div class="tech-item">
+                    <strong>Gizlilik</strong>
+                    <span>Tamamen yerel</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Search Box -->
+        <div class="search-box">
+            <input 
+                type="text" 
+                id="searchInput" 
+                placeholder="Örn: üzerine asit atıldığı ile ilgili sanrılar gören hasta"
+                aria-label="Arama sorgusu"
+            >
+            <div class="button-group">
+                <button onclick="ara()" id="searchBtn">Ara</button>
+                <button onclick="temizle()" class="btn-secondary" id="clearBtn">Temizle</button>
+            </div>
+        </div>
+        
+        <!-- Example Queries -->
+        <div class="example-queries">
+            <div class="example-queries-title">Örnek Sorgular</div>
+            <span class="example-query" onclick="setQuery('üzerine asit atıldığı ile ilgili sanrılar gören hasta')">
+                Asit sanrıları
+            </span>
+            <span class="example-query" onclick="setQuery('kimyasal madde korkusu olan hasta')">
+                Kimyasal korku
+            </span>
+            <span class="example-query" onclick="setQuery('yanık tedavisi gören kimse')">
+                Yanık tedavisi
+            </span>
+            <span class="example-query" onclick="setQuery('depresyon belirtileri')">
+                Depresyon
+            </span>
+            <span class="example-query" onclick="setQuery('panik atak')">
+                Panik atak
+            </span>
+        </div>
+        
+        <!-- Results -->
+        <div id="results"></div>
+    </div>
+
+    <script>
+        // Configuration
+        const API_URL = 'http://localhost:8000';
+        const HEALTH_CHECK_INTERVAL = 30000;
+        
+        // Initialize
+        window.addEventListener('load', () => {
+            checkAPIStatus();
+            setInterval(checkAPIStatus, HEALTH_CHECK_INTERVAL);
+        });
+        
+        // API Status Check
+        async function checkAPIStatus() {
+            const statusDot = document.querySelector('.status-dot');
+            const statusText = document.getElementById('statusText');
+            
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 3000);
+                
+                const response = await fetch(`${API_URL}/health`, {
+                    method: 'GET',
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+                
+                if (response.ok) {
+                    statusDot.className = 'status-dot status-online';
+                    statusText.textContent = 'Çevrimiçi';
+                } else {
+                    throw new Error('API yanıt vermiyor');
+                }
+            } catch (error) {
+                statusDot.className = 'status-dot status-offline';
+                statusText.textContent = 'Çevrimdışı';
+            }
+        }
+        
+        // Set Query
+        function setQuery(query) {
+            document.getElementById('searchInput').value = query;
+            document.getElementById('searchInput').focus();
+        }
+        
+        // Clear
+        function temizle() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('results').innerHTML = '';
+            document.getElementById('searchInput').focus();
+        }
+        
+        // Main Search Function
+        async function ara() {
+            const sorgu = document.getElementById('searchInput').value.trim();
+            const resultsDiv = document.getElementById('results');
+            const searchBtn = document.getElementById('searchBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            
+            if (!sorgu) {
+                resultsDiv.innerHTML = `
+                    <div class="error-box">
+                        <h3>Uyarı</h3>
+                        <p>Lütfen bir arama sorgusu girin.</p>
+                    </div>
+                `;
+                document.getElementById('searchInput').focus();
+                return;
+            }
+            
+            searchBtn.disabled = true;
+            clearBtn.disabled = true;
+            searchBtn.textContent = 'Aranıyor...';
+            
+            resultsDiv.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <div class="loading-text">SOMA düşünüyor</div>
+                    <div class="loading-subtext">
+                        İlk sorgu 10-15 saniye sürebilir
+                    </div>
+                </div>
+            `;
+            
+            try {
+                const response = await fetch(`${API_URL}/ara`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        sorgu: sorgu,
+                        top_k: 3
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                displayResults(data);
+                
+            } catch (error) {
+                console.error('Arama hatası:', error);
+                displayError(error);
+            } finally {
+                searchBtn.disabled = false;
+                clearBtn.disabled = false;
+                searchBtn.textContent = 'Ara';
+            }
+        }
+        
+        // Display Results
+        function displayResults(data) {
+            const resultsDiv = document.getElementById('results');
+            let html = '<div class="results">';
+            
+            html += `
+                <div class="llm-response">
+                    <h3>SOMA Yanıtı</h3>
+                    <div class="llm-response-content">
+                        ${escapeHtml(data.llm_yanit).replace(/\n/g, '<br>')}
+                    </div>
+                    <div class="llm-meta">
+                        <div class="llm-meta-item">
+                            <span>Model: ${data.model || 'llama3.2'}</span>
+                        </div>
+                        <div class="llm-meta-item">
+                            <span>Maliyet: ${data.maliyet || '₺0'}</span>
+                        </div>
+                        <div class="llm-meta-item">
+                            <span>${data.sonuclar.length} sonuç bulundu</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            html += `<h3 class="results-title">Bulunan Kayıtlar</h3>`;
+            
+            data.sonuclar.forEach((sonuc, index) => {
+                const kayit = sonuc.kayit;
+                const skor = (sonuc.skor * 100).toFixed(1);
+                
+                html += `
+                    <div class="result-card">
+                        <div class="result-header">
+                            <span class="hasta-isim">
+                                ${index + 1}. ${escapeHtml(kayit.isim)}
+                            </span>
+                            <span class="skor">
+                                %${skor}
+                            </span>
+                        </div>
+                        <div class="result-meta">
+                            Tarih: ${kayit.tarih}
+                        </div>
+                        <div class="notlar">
+                            ${escapeHtml(kayit.notlar)}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            resultsDiv.innerHTML = html;
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        // Display Error
+        function displayError(error) {
+            const resultsDiv = document.getElementById('results');
+            
+            resultsDiv.innerHTML = `
+                <div class="error-box">
+                    <h3>Bağlantı Hatası</h3>
+                    <p>${escapeHtml(error.message)}</p>
+                    <div class="error-solutions">
+                        <strong>Çözüm Önerileri</strong>
+                        <ol>
+                            <li>Ollama'nın çalıştığından emin olun: <code>ollama serve</code></li>
+                            <li>API'yi başlatın: <code>uvicorn api_free:app --reload</code></li>
+                            <li>Model kontrolü: <code>ollama list</code></li>
+                            <li>Tarayıcı konsolunu kontrol edin (F12)</li>
+                        </ol>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Event Listeners
+        document.getElementById('searchInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') ara();
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') temizle();
+        });
+        
+        document.getElementById('searchInput').addEventListener('focus', (e) => {
+            e.target.style.borderColor = 'var(--accent-purple)';
+        });
+        
+        document.getElementById('searchInput').addEventListener('blur', (e) => {
+            if (!e.target.value) {
+                e.target.style.borderColor = 'var(--border-color)';
+            }
+        });
+    </script>
+</body>
+</html>
