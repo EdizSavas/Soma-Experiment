@@ -82,3 +82,4 @@ uvicorn api:app --reload
 2. Türkçe karakter encoding bazen sorun çıkarabilir,
 3. Neo4j vektör araması büyük veri setlerinde yavaş olabilir,
 4. Anlam kayması ve didaktik sorunlar oluşabilir.
+5. Eğer "ollama serve" komudu hata verirse port değiştirmeyi denemek gerekli örnek olarak: "$env:OLLAMA_HOST = 127.0.0.1:11435"
