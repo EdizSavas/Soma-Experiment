@@ -31,16 +31,16 @@ Sonuç: "göğsüne asit döküldüğü sanrıları gören hasta" ✅
 ```
 ---
 
-###Hızlı Başlangıç:
+## Hızlı Başlangıç:
 
-##Gereksinimler
+### Gereksinimler
 
-        Python 3.8+
-        8GB boş disk alanı
-        8GB RAM (önerilir)
-        Ollama_3.1:8b
+- Python 3.8+
+- 8GB boş disk alanı
+- 8GB RAM (önerilir)
+- Ollama_3.1:8b
 
-##Kurulum
+### Kurulum
 ```powershell
 # 1. Repo'yu klonla
 git clone https://github.com/EdizSavas/Soma-Experiment.git
@@ -66,7 +66,7 @@ ollama serve
 ollama pull llama3.1:8b
 ```
 
-##Çalıştırma
+### Çalıştırma
 ```powershell
 # Konsol Soma-Experiments
 python demo.py
@@ -77,8 +77,8 @@ uvicorn api:app --reload
 # Web arayüzü: index_free.html dosyasını tarayıcıda aç
 ```
 
-##Bilinen Sorunlar
-        1.  İlk sorgu yavaş (model yükleme),
+### Bilinen Sorunlar
+        1. İlk sorgu yavaş (model yükleme),
         2. Türkçe karakter encoding bazen sorun çıkarabilir,
         3. Neo4j vektör araması büyük veri setlerinde yavaş olabilir,
         4. Anlam kayması ve didaktik sorunlar oluşabilir.
