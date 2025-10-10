@@ -78,7 +78,7 @@ uvicorn api:app --reload
 ```
 
 ### Bilinen Sorunlar
-        1. İlk sorgu yavaş (model yükleme),
-        2. Türkçe karakter encoding bazen sorun çıkarabilir,
-        3. Neo4j vektör araması büyük veri setlerinde yavaş olabilir,
-        4. Anlam kayması ve didaktik sorunlar oluşabilir.
+1. İlk sorgu yavaş (model yükleme),
+2. Türkçe karakter encoding bazen sorun çıkarabilir,
+3. Neo4j vektör araması büyük veri setlerinde yavaş olabilir,
+4. Anlam kayması ve didaktik sorunlar oluşabilir.
