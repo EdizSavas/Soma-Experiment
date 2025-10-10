@@ -4,7 +4,7 @@
 
 SOMA, vektör-tabanlı anlamsal temsil ile graf-tabanlı bilgi modellemesini birleştiren hibrit bir yapay zeka mimarisidir. Klasik keyword matching'in ötesine geçerek, metinlerin içerdiği **gerçek anlam** üzerinden çıkarımlar yapar.
 
-![SOMA Demo](https://img.shields.io/badge/version-1.0.0-purple)
+![SOMA Demo](https://img.shields.io/badge/version-0.2.0-purple)
 ![Python](https://img.shields.io/badge/python-3.8+-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Status](https://img.shields.io/badge/status-pre_alpha-red)
@@ -32,6 +32,7 @@ Sonuç: "göğsüne asit döküldüğü sanrıları gören hasta" ✅
 ---
 
 Hızlı Başlangıç:
+
 -Gereksinimler
 
         Python 3.8+
