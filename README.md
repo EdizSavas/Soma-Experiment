@@ -59,10 +59,13 @@ python requirements.py
 # veya
 pip install -r requirements.txt
 
-# 4. Ollama'yı başlat (yeni terminal)
+# 4. Ollama'yı indir
+https://ollama.com/download
+
+# 5. Ollama'yı başlat (yeni terminal)
 ollama serve
 
-# 5. Llama modelini indir
+# 6. Llama modelini indir
 ollama pull llama3.1:8b
 ```
 
