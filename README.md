@@ -36,9 +36,10 @@ Sonuç: "göğsüne asit döküldüğü sanrıları gören hasta" ✅
 ### Gereksinimler
 
 - Python 3.8+
+- Pytorch
 - 8GB boş disk alanı
 - 8GB RAM (önerilir)
-- Ollama_3.1:8b
+- Ollama_3.1:8b 
 
 ### Kurulum
 ```powershell
@@ -59,13 +60,16 @@ python requirements.py
 # veya
 pip install -r requirements.txt
 
-# 4. Ollama'yı indir
+# 4. Pytorch'u kurun
+https://pytorch.org/get-started/locally/
+
+# 5. Ollama'yı indir
 https://ollama.com/download
 
-# 5. Ollama'yı başlat (yeni terminal)
+# 6. Ollama'yı başlat (yeni terminal)
 ollama serve
 
-# 6. Llama modelini indir
+# 7. Llama modelini indir
 ollama pull llama3.1:8b
 ```
 
