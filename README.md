@@ -55,13 +55,13 @@ venv\Scripts\activate
 # Linux/Mac:
 source venv/bin/activate
 
-# 3. Gereksinimleri yükle
+# 3. Pytorch'u kurun
+https://pytorch.org/get-started/locally/
+
+# 4. Gereksinimleri yükle
 python requirements.py
 # veya
 pip install -r requirements.txt
-
-# 4. Pytorch'u kurun
-https://pytorch.org/get-started/locally/
 
 # 5. Ollama'yı indir
 https://ollama.com/download
