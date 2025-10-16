@@ -1,4 +1,4 @@
-# 🧠 SOMA - Semantic Reasoning Engine
+# 🧠 SOMA - Self-Organizing Modular Architecture
 
 **Anlamsal Çıkarım Yapabilen Yapay Zeka Motoru**
 
